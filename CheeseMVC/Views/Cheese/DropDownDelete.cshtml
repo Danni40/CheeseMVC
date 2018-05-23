@@ -1,15 +1,13 @@
-﻿
+﻿@model IEnumerable<CheeseMVC.Models.Cheese.Cheese>
+
 @{
     ViewData["Title"] = "DropDownDelete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DropDownDelete</h2>
+<h2>Delete Cheese</h2>
+
 <form method="post">
-	<select name="cheeseName">
-		@foreach(string cheeseName in ViewBag.cheeses.Keys) {
-			<option value="@cheeseName">@cheeseName</option>
-		}
-	</select>
+	@Html.DropDownList("selectedCheeseName", new SelectList(Model, "Name", "Name"))
 	<button type="submit">Delete Cheese</button>
 </form>

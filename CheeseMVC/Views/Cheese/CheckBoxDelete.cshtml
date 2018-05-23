@@ -1,16 +1,17 @@
-﻿
+﻿@model IEnumerable<CheeseMVC.Models.Cheese.Cheese>
+
 @{
     ViewData["Title"] = "CheckBoxDelete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CheckBoxDelete</h2>
+<h2>Delete Cheese(s)</h2>
 
 <form method="post">
-	@foreach(string cheeseName in ViewBag.cheeses.Keys) 
-	{
-		<label>@cheeseName</label><input type="checkbox" name="selectedCheeseNames" value="@cheeseName"/>
-
+	@foreach(var cheese in Model) {
+		@Html.Label(cheese.Name)
+		@Html.CheckBox("selectedCheeseNames", false, new { value = @cheese.Name })
+		<br/>
 	}
 	<button type="submit">Delete Cheese(s)</button>
 </form>

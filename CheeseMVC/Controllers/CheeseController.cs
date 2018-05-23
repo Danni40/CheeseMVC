@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CheeseMVC.Models.Cheese;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CheeseMVC.Controllers
 {
     public class CheeseController : Controller
     {
-		private static Dictionary<string, string> cheeses = new Dictionary<string, string>();
+		private static List<Cheese> cheeses = new List<Cheese>();
 
 		[HttpGet]
         public IActionResult Index()
         {
-			ViewBag.cheeses = cheeses;
-            return View();
+            return View(cheeses);
         }
 
 		[HttpGet]
@@ -24,41 +24,45 @@ namespace CheeseMVC.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Add(string cheeseName, string description) 
+		public IActionResult Add(Cheese cheese) 
 		{
-			if (cheeses.ContainsKey(cheeseName))
-				cheeses[cheeseName] = description;
-			else
-				cheeses.Add(cheeseName, description);
+			cheeses.Add(cheese);
 			return Redirect("Index");
 		}
 
 		[HttpGet]
 		public IActionResult CheckBoxDelete() 
 		{
-			ViewBag.cheeses = cheeses;
-			return View();
+			return View(cheeses);
 		}
 
 		[HttpPost]
 		public IActionResult CheckBoxDelete(string[] selectedCheeseNames) 
 		{
-			foreach (string cheeseName in selectedCheeseNames)
-				cheeses.Remove(cheeseName);
+			List<Cheese> cheesesToRemove = new List<Cheese>();
+			foreach (Cheese cheese in cheeses)
+				if (selectedCheeseNames.Contains(cheese.Name))
+					cheesesToRemove.Add(cheese);
+			foreach (Cheese cheese in cheesesToRemove)
+				cheeses.Remove(cheese);
 			return Redirect("Index");
 		}
 
 		[HttpGet]
 		public IActionResult DropDownDelete() 
 		{
-			ViewBag.cheeses = cheeses;
-			return View();
+			return View(cheeses);
 		}
 
 		[HttpPost]
-		public IActionResult DropDownDelete(string cheeseName) 
+		public IActionResult DropDownDelete(string selectedCheeseName) 
 		{
-			cheeses.Remove(cheeseName);
+			Cheese cheeseToRemove = new Cheese();
+			foreach (Cheese cheese in cheeses)
+				if (cheese.Name == selectedCheeseName)
+					cheeseToRemove = cheese;
+			cheeses.Remove(cheeseToRemove);
+
 			return Redirect("Index");
 		}
     }
