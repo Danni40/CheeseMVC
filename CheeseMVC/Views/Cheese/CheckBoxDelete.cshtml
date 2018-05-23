@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "CheckBoxDelete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CheckBoxDelete</h2>
+
+@foreach(string cheese in ViewBag.cheeses.Keys) 
+{
+	<label>@cheese</label>
+
+}

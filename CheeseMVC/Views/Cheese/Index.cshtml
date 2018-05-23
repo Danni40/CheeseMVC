@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table>
+	<tbody>
+		<tr>
+			<th style="margin:15px;">Cheese</th>
+			<th>Description</th>
+		</tr>
+	@foreach(KeyValuePair<string, string> cheese in ViewBag.cheeses) {
+		<tr>
+			<td>
+				@cheese.Key
+			</td>
+			<td>
+				@cheese.Value
+			</td>
+		</tr>
+	}
+	</tbody>
+</table>
+<p><a asp-controller="Cheese" asp-action="Add">Add Cheese</a></p>
