@@ -5,4 +5,11 @@
 }
 
 <h2>DropDownDelete</h2>
-
+<form method="post">
+	<select name="cheeseName">
+		@foreach(string cheeseName in ViewBag.cheeses.Keys) {
+			<option value="@cheeseName">@cheeseName</option>
+		}
+	</select>
+	<button type="submit">Delete Cheese</button>
+</form>

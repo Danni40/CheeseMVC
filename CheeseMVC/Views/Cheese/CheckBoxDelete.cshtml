@@ -6,8 +6,11 @@
 
 <h2>CheckBoxDelete</h2>
 
-@foreach(string cheese in ViewBag.cheeses.Keys) 
-{
-	<label>@cheese</label>
+<form method="post">
+	@foreach(string cheeseName in ViewBag.cheeses.Keys) 
+	{
+		<label>@cheeseName</label><input type="checkbox" name="selectedCheeseNames" value="@cheeseName"/>
 
-}
+	}
+	<button type="submit">Delete Cheese(s)</button>
+</form>

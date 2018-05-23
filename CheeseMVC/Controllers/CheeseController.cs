@@ -24,12 +24,12 @@ namespace CheeseMVC.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Add(string cheese, string description) 
+		public IActionResult Add(string cheeseName, string description) 
 		{
-			if (cheeses.ContainsKey(cheese))
-				cheeses[cheese] = description;
+			if (cheeses.ContainsKey(cheeseName))
+				cheeses[cheeseName] = description;
 			else
-				cheeses.Add(cheese, description);
+				cheeses.Add(cheeseName, description);
 			return Redirect("Index");
 		}
 
@@ -41,8 +41,10 @@ namespace CheeseMVC.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult CheckBoxDelete(string[] cheese) 
+		public IActionResult CheckBoxDelete(string[] selectedCheeseNames) 
 		{
+			foreach (string cheeseName in selectedCheeseNames)
+				cheeses.Remove(cheeseName);
 			return Redirect("Index");
 		}
 
@@ -54,8 +56,9 @@ namespace CheeseMVC.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult DropDownDelete(string cheese) 
+		public IActionResult DropDownDelete(string cheeseName) 
 		{
+			cheeses.Remove(cheeseName);
 			return Redirect("Index");
 		}
     }
