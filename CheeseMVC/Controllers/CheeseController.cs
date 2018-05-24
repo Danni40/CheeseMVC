@@ -33,15 +33,16 @@ namespace CheeseMVC.Controllers
 		[HttpGet]
 		public IActionResult CheckBoxDelete() 
 		{
-			return View(cheeses);
+			var model = new CheckBoxDeleteViewModel(cheeses);
+			return View(model);
 		}
 
 		[HttpPost]
-		public IActionResult CheckBoxDelete(string[] selectedCheeseNames) 
+		public IActionResult CheckBoxDelete(CheckBoxDeleteViewModel model) 
 		{
 			List<Cheese> cheesesToRemove = new List<Cheese>();
 			foreach (Cheese cheese in cheeses)
-				if (selectedCheeseNames.Contains(cheese.Name))
+				if (model.SelectedCheeseNames.Contains(cheese.Name))
 					cheesesToRemove.Add(cheese);
 			foreach (Cheese cheese in cheesesToRemove)
 				cheeses.Remove(cheese);
@@ -51,15 +52,16 @@ namespace CheeseMVC.Controllers
 		[HttpGet]
 		public IActionResult DropDownDelete() 
 		{
-			return View(cheeses);
+			var model = new DropDownDeleteViewModel(cheeses);
+			return View(model);
 		}
 
 		[HttpPost]
-		public IActionResult DropDownDelete(string selectedCheeseName) 
+		public IActionResult DropDownDelete(DropDownDeleteViewModel model) 
 		{
 			Cheese cheeseToRemove = new Cheese();
 			foreach (Cheese cheese in cheeses)
-				if (cheese.Name == selectedCheeseName)
+				if (cheese.Name == model.SelectedCheeseName)
 					cheeseToRemove = cheese;
 			cheeses.Remove(cheeseToRemove);
 

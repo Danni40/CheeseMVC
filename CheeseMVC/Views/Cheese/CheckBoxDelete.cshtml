@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CheeseMVC.Models.Cheese.Cheese>
+﻿@model CheeseMVC.Models.Cheese.CheckBoxDeleteViewModel
 
 @{
     ViewData["Title"] = "CheckBoxDelete";
@@ -8,10 +8,9 @@
 <h2>Delete Cheese(s)</h2>
 
 <form method="post">
-	@foreach(var cheese in Model) {
-		@Html.Label(cheese.Name)
-		@Html.CheckBox("selectedCheeseNames", false, new { value = @cheese.Name })
-		<br/>
+	@foreach (var item in Model.Cheeses) {
+		@Html.Label(item.Name)
+		@Html.CheckBox("SelectedCheeseNames", new { value = item.Name })
 	}
 	<button type="submit">Delete Cheese(s)</button>
 </form>

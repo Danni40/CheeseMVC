@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CheeseMVC.Models.Cheese.Cheese>
+﻿@model CheeseMVC.Models.Cheese.DropDownDeleteViewModel
 
 @{
     ViewData["Title"] = "DropDownDelete";
@@ -8,6 +8,6 @@
 <h2>Delete Cheese</h2>
 
 <form method="post">
-	@Html.DropDownList("selectedCheeseName", new SelectList(Model, "Name", "Name"))
+	@Html.DropDownListFor(model=> model.SelectedCheeseName, new SelectList(Model.Cheeses, "Name", "Name", Model.SelectedCheeseName))
 	<button type="submit">Delete Cheese</button>
 </form>
